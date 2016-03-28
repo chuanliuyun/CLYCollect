@@ -1,0 +1,62 @@
+angularjs的内置服务多，例如：$scope,$rootScope,$http,$q,$resource,$routeProvider等等，也可以自定义服务 如下：
+
+<pre><code>
+'use strict';  
+  
+/* Services */  
+  
+var phonecatServices = angular.module('phonecatServices', []);  
+  
+phonecatServices.factory('facetorytest', ['$window',         //factory方式  
+    function($window){  
+        var test = {  
+            firstname:"tank",  
+            lastname:function(){  
+                return "zhang";  
+            }  
+        };  
+        $window.alert('aaaa');         //内置服务可以注入  
+        return test;  
+    }  
+]);  
+  
+phonecatServices.service('servicetest', ['$window',          //service方式  
+    function($window){  
+        $window.alert('bbbb');        //内置服务可以注入  
+        this.firstname = "tank";  
+        this.lastname = function(){  
+            return "zhang";  
+        }  
+    }  
+]);  
+  
+phonecatServices.provider('providertest',[                  //provider方式，内置服务不可以注入  
+    function(){  
+        this.test = {  
+            "firstname":"tank",  
+            "lastname":"zhang"  
+        }  
+        this.$get = function () {  
+            return this.test;  
+        };  
+    }  
+]); 
+</code></pre>
+
+注：实际操作结果是provider是不能注入内置服务的。如下：
+<pre><code>
+
+phonecatServices.provider('providertest',['$window',  
+    function($window){  
+        $window.alert('cccc');             //报错  
+        this.test = {  
+            "firstname":"tank",  
+            "lastname":"zhang"  
+        }  
+        this.$get = function () {  
+            return this.test;  
+        };  
+    }  
+]); 
+
+</code></pre>
