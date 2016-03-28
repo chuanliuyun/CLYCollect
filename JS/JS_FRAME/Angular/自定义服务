@@ -1,6 +1,5 @@
 angularjs的内置服务多，例如：$scope,$rootScope,$http,$q,$resource,$routeProvider等等，也可以自定义服务 如下：
 
-<pre><code>
 'use strict';  
   
 /* Services */  
@@ -41,14 +40,12 @@ phonecatServices.provider('providertest',[                  //provider方式，�
         };  
     }  
 ]); 
-</code></pre>
 
 注：实际操作结果是provider是不能注入内置服务的。如下：
-<pre><code>
 
 phonecatServices.provider('providertest',['$window',  
     function($window){  
-        $window.alert('cccc');             //报错  
+        $window.alert('cccc');   //报错  
         this.test = {  
             "firstname":"tank",  
             "lastname":"zhang"  
@@ -59,4 +56,3 @@ phonecatServices.provider('providertest',['$window',
     }  
 ]); 
 
-</code></pre>
